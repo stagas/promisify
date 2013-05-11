@@ -3,7 +3,7 @@
  * Convert a callback based api to promise based.
  *
  * @param {Function} capturedfn
- * @return {Object} promise
+ * @return {Function} promisified
  * @api public
  */
 
