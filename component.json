@@ -1,0 +1,9 @@
+{
+  "name": "promisify",
+  "version": "0.0.1",
+  "description": "converts a callback based api to promise based",
+  "keywords": ["callback","promise","control flow"],
+  "author": "stagas",
+  "license": "MIT",
+  "scripts": ["index.js"]
+}

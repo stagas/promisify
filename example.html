@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>promisify</title>
+    <link rel="stylesheet" href="build/build.css">
+  </head>
+  <body>
+    <script src="build/build.js"></script>
+    <script>
+      var promisify = require('promisify');
+      var add = promisify(function(a, b, cb){
+        setTimeout(function(){
+          cb(null, a+b);
+        }, 0);
+      });
+      var result = add(3, 3);
+      var again = add(result, 5);
+      var waaat = add(again, result);
+      add(result, waaat).when(function(err, res){
+        console.log(res); // 23
+      });
+    </script>
+  </body>
+</html>
