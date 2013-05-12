@@ -1,13 +1,53 @@
 
 /**
+ * Promisify `item`.
+ *
+ * @param {Function|Object} item 
+ * @return {Function|Object}
+ * @api public
+ */
+
+exports = module.exports = function(item){
+  return 'object' == typeof item
+    ? map(item)
+    : promisify(item);
+};
+
+/**
+ * Exports.
+ */
+
+exports.map = map;
+exports.promisify = promisify;
+
+/**
+ * Promisify all function methods in `captured`.
+ *
+ * @param {Object} captured
+ * @return {Object} promisified
+ * @api public
+ */
+
+function map(captured){
+  var obj = {};
+  for (var key in captured){
+    var prop = captured[key];
+    if ('function' == typeof prop) {
+      obj[key] = promisify(prop.bind(captured));
+    }
+  }
+  return obj;
+}
+
+/**
  * Convert a callback based api to promise based.
  *
- * @param {Function} capturedfn
+ * @param {Function} captured
  * @return {Function} promisified
  * @api public
  */
 
-module.exports = function(capturedfn){
+function promisify(captured){
   return function(){
     /**
      * Promise object.
@@ -77,7 +117,7 @@ module.exports = function(capturedfn){
     function next(error){
       if (error) return promise.resolve(error);
       args.push(promise.resolve);
-      capturedfn.apply(this, args);
+      captured.apply(this, args);
     }
 
     /**
