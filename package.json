@@ -6,5 +6,6 @@
   "author": "stagas",
   "license": "MIT",
   "main": "index.js",
+  "scripts": { "test": "node test/test.js" },
   "engines": { "node": "*" }
 }
